@@ -1,1 +1,32 @@
 $ tsc
+src/app.ts(10,10): error TS2305: Module '"@carbroz/common"' has no exported member 'ResponseHelper'.
+src/app.ts(61,44): error TS6133: 'reply' is declared but its value is never read.
+src/app.ts(72,45): error TS6133: 'reply' is declared but its value is never read.
+src/app.ts(81,32): error TS6133: 'request' is declared but its value is never read.
+src/middlewares/auth.middleware.ts(3,10): error TS2305: Module '"@carbroz/common"' has no exported member 'UnauthorizedError'.
+src/middlewares/auth.middleware.ts(5,60): error TS6133: 'reply' is declared but its value is never read.
+src/middlewares/auth.middleware.ts(13,61): error TS6133: 'reply' is declared but its value is never read.
+src/middlewares/error-handler.ts(2,10): error TS2305: Module '"@carbroz/common"' has no exported member 'AppError'.
+src/middlewares/error-handler.ts(3,10): error TS2305: Module '"@carbroz/common"' has no exported member 'ResponseHelper'.
+src/middlewares/error-handler.ts(11,25): error TS2345: Argument of type 'number | undefined' is not assignable to parameter of type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+src/middlewares/error-handler.ts(12,49): error TS2339: Property 'errorCode' does not exist on type 'FastifyError'.
+src/middlewares/rbac.middleware.ts(2,10): error TS2305: Module '"@carbroz/common"' has no exported member 'ForbiddenError'.
+src/middlewares/rbac.middleware.ts(6,42): error TS6133: 'reply' is declared but its value is never read.
+src/middlewares/rbac.middleware.ts(19,42): error TS6133: 'reply' is declared but its value is never read.
+src/modules/auth/api/auth.controller.ts(3,10): error TS2305: Module '"@carbroz/common"' has no exported member 'ResponseHelper'.
+src/modules/auth/api/auth.controller.ts(69,34): error TS2339: Property 'userSession' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/modules/auth/api/auth.controller.ts(97,20): error TS2339: Property 'role' does not exist on type '{ id: string; phoneNumber: string; isActive: boolean; failedAttempts: number; lockoutUntil: Date | null; createdAt: Date; updatedAt: Date; }'.
+src/modules/auth/api/auth.controller.ts(103,18): error TS2339: Property 'userSession' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/modules/auth/api/auth.controller.ts(129,34): error TS2339: Property 'userSession' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/modules/auth/api/auth.controller.ts(149,18): error TS2339: Property 'userSession' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/modules/auth/api/auth.controller.ts(162,11): error TS6133: 'deviceId' is declared but its value is never read.
+src/modules/auth/api/auth.controller.ts(165,20): error TS2339: Property 'userSession' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/modules/auth/api/auth.controller.ts(176,20): error TS2339: Property 'userSession' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/modules/auth/repositories/AuthRepository.ts(1,10): error TS2305: Module '"@prisma/client"' has no exported member 'PrismaClient'.
+src/modules/auth/routes/auth.routes.ts(5,10): error TS2305: Module '"@prisma/client"' has no exported member 'PrismaClient'.
+src/modules/auth/tests/rbac.middleware.spec.ts(3,10): error TS2305: Module '"@carbroz/common"' has no exported member 'ForbiddenError'.
+src/ui/builders/AuthLoginBuilder.ts(10,22): error TS6133: 'context' is declared but its value is never read.
+src/ui/builders/AuthOtpBuilder.ts(10,22): error TS6133: 'context' is declared but its value is never read.
+src/ui/serializer/JsonSerializer.ts(6,47): error TS6133: 'key' is declared but its value is never read.
+[ELIFECYCLE] Command failed with exit code 2.
