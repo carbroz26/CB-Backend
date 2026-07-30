@@ -1,16 +1,13 @@
 # Package Ownership Matrix
-
-- `apps/backend-api`: Core App
-- `packages/cache`: Shared Cache
-- `packages/common`: Shared Common Utils
-- `packages/config`: Config Mgmt
-- `packages/database`: DB Access (Prisma)
-- `packages/events`: Event definitions
-- `packages/feature-flags`: Flags
-- `packages/logger`: Shared Logger
-- `packages/messaging`: Message Bus
-- `packages/observability`: Metrics/Tracing
-- `packages/performance`: Perf Tools
-- `packages/types`: Shared Types
-- `packages/ui-sdk`: SDUI definitions
-- `packages/validation`: Validation schemas
+- `apps/backend-api`: Core Fastify API
+- `packages/common`: Shared utility functions
+- `packages/database`: Prisma schema and client
+- `packages/ui-sdk`: SDUI schemas, types, factories, and components
+- `packages/providers`: Third-party integrations
+- `packages/observability`: Logging and tracing
+- `packages/cache`: Redis caching
+- `packages/events`: Domain events
+- `packages/messaging`: Message queues (BullMQ/Kafka)
+- `packages/validation`: Zod schemas
+- `packages/feature-flags`: Feature toggles
+- `packages/performance`: Profiling utilities

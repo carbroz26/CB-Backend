@@ -1,4 +1,4 @@
 # Dependency Graph Report
-
-- Root depends on: `@prisma/client`, `vitest`, `eslint`, `prettier`, `typescript`.
-- Internal packages form a DAG. No circular dependencies allowed.
+- Root workspace depends on turbo, typescript, vitest, eslint, prettier.
+- Internal packages form a strict DAG structure to prevent circular dependencies.
+- Packages use `workspace:*` references.

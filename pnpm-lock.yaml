@@ -380,6 +380,16 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3
 
+  packages/providers:
+    dependencies:
+      '@carbroz/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      '@types/node':
+        specifier: ^26.1.0
+        version: 26.1.0
+
   packages/types: {}
 
   packages/validation:

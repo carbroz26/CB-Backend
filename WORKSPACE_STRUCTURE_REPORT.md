@@ -1,0 +1,18 @@
+# Workspace Structure Report
+- apps/
+  - backend-api
+- packages/
+  - cache
+  - common
+  - config
+  - database
+  - events
+  - feature-flags
+  - logger
+  - messaging
+  - observability
+  - performance
+  - providers
+  - types
+  - ui-sdk
+  - validation
