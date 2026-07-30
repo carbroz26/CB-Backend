@@ -4,12 +4,13 @@
   "description": "CarBroz Backend Platform Workspace",
   "private": true,
   "scripts": {
-    "dev": "pnpm --filter backend-api dev",
+    "dev": "turbo run dev",
     "start": "pnpm --filter backend-api start",
-    "build": "pnpm -r build",
-    "lint": "eslint .",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
     "format": "prettier --write .",
-    "test": "vitest"
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test"
   },
   "devEngines": {
     "packageManager": {
@@ -28,6 +29,7 @@
     "prettier": "^3.9.4",
     "prisma": "^6.19.3",
     "tsx": "^4.23.0",
+    "turbo": "^2.10.7",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.62.1",
     "vitest": "^4.1.9"

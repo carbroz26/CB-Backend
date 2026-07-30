@@ -10,6 +10,11 @@ import authRoutes from './modules/auth/api/auth.routes.js';
 import { ResponseHelper } from '@carbroz/common';
 import uiRoutes from './ui/ui.routes.js';
 import appRoutes from './app.routes.js';
+import fastifyStatic from '@fastify/static';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 export const buildApp = async () => {
     const app = Fastify({
         logger: getFastifyLoggerConfig(AppConfig.logLevel),
@@ -17,6 +22,11 @@ export const buildApp = async () => {
     // Plugins Registration Order
     // 1. Request Context
     await app.register(requestContextPlugin);
+    // 1.5 Static Files
+    await app.register(fastifyStatic, {
+        root: path.join(__dirname, '../public'),
+        prefix: '/',
+    });
     // 2. JWT Plugin
     await app.register(jwtPlugin);
     // 3. Helmet
@@ -43,12 +53,26 @@ export const buildApp = async () => {
         }
     });
     // Global Request Logger Hook
-    app.addHook('onRequest', async (request, reply) => {
-        console.log(`\n🚀 [BACKEND LOG] Incoming Request: ${request.method} ${request.url}`);
-        console.log(`📡 [BACKEND LOG] Headers:`, JSON.stringify(request.headers));
+    app.addHook('preHandler', async (request, reply) => {
+        console.log(`\n==================================================`);
+        console.log(`🚀 API CALL: ${request.method} ${request.url}`);
+        console.log(`==================================================`);
+        if (request.body) {
+            console.log(`📦 Payload:\n${JSON.stringify(request.body, null, 2)}`);
+        }
     });
-    app.addHook('onResponse', async (request, reply) => {
-        console.log(`✅ [BACKEND LOG] Response Sent: ${reply.statusCode} for ${request.method} ${request.url}\n`);
+    app.addHook('onSend', async (request, reply, payload) => {
+        console.log(`--------------------------------------------------`);
+        console.log(`✅ Response [${reply.statusCode}]:`);
+        try {
+            const jsonPayload = JSON.parse(payload);
+            console.log(JSON.stringify(jsonPayload, null, 2));
+        }
+        catch {
+            console.log(payload);
+        }
+        console.log(`==================================================\n`);
+        return payload;
     });
     // Routes
     await app.register(authRoutes, { prefix: '/api/v1/auth' });
