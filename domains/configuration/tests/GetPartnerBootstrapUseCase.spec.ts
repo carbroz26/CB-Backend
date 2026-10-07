@@ -13,12 +13,12 @@ function validDocument(): PartnerBootstrapDocument {
     update: {
       ANDROID: { minimumVersion: '2.0.0', latestVersion: '3.0.0', storeUrl: 'market://carbroz-partner' },
       IOS: { minimumVersion: '1.0.0', latestVersion: '1.0.0', storeUrl: null },
-      DESKTOP: { minimumVersion: '1.0.0', latestVersion: '1.0.0', storeUrl: null },
+      WEB: { minimumVersion: '1.0.0', latestVersion: '1.0.0', storeUrl: null },
     },
     features: { registrationEnabled: true, individualPartnerEnabled: true, organizationPartnerEnabled: true },
     startup: {
-      guest: { screenId: 'partner_login', templateId: 'tpl_7K2M9Q', templateType: 'form_template', endpoint: '/api/v1/partner/screen/auth_login', method: 'GET', authentication: 'NONE' },
-      authenticated: { screenId: 'partner_dashboard', templateId: 'partner_dashboard_template', templateType: 'default_template', endpoint: '/api/v1/partner/sdui/registry/partner_dashboard', method: 'GET', authentication: 'SESSION' },
+      guest: { screenId: 'partner_login', templateId: 'tpl_P101L', templateType: 'form_template', endpoint: '/api/v1/partner/screen/auth_login' },
+      authenticated: { screenId: 'partner_dashboard', templateId: 'partner_dashboard_template', templateType: 'default_template', endpoint: '/api/v1/partner/sdui/registry/partner_dashboard' },
     },
   };
 }
@@ -26,14 +26,14 @@ function validDocument(): PartnerBootstrapDocument {
 describe('GetPartnerBootstrapUseCase', () => {
   it('returns the canonical unauthenticated Partner login destination', async () => {
     const result = await new GetPartnerBootstrapUseCase(providerReturning()).execute({ platform: 'ANDROID', appVersion: '1.0.0', authenticated: false });
-    expect(result.startup).toEqual({ authenticated: false, nextScreen: {
-      screenId: 'partner_login', templateId: 'tpl_7K2M9Q', templateType: 'form_template', endpoint: '/api/v1/partner/screen/auth_login', method: 'GET', authentication: 'NONE',
+    expect(result.startup).toEqual({ authenticated: false, destination: {
+      screenId: 'partner_login', templateId: 'tpl_P101L', templateType: 'form_template', endpoint: '/api/v1/partner/screen/auth_login',
     } });
   });
 
   it('returns the frozen authenticated Partner Dashboard destination', async () => {
     const result = await new GetPartnerBootstrapUseCase(providerReturning()).execute({ platform: 'IOS', appVersion: '1.0.0', authenticated: true });
-    expect(result.startup.nextScreen).toEqual({ screenId: 'partner_dashboard', templateId: 'partner_dashboard_template', templateType: 'default_template', endpoint: '/api/v1/partner/sdui/registry/partner_dashboard', method: 'GET', authentication: 'SESSION' });
+    expect(result.startup.destination).toEqual({ screenId: 'partner_dashboard', templateId: 'partner_dashboard_template', templateType: 'default_template', endpoint: '/api/v1/partner/sdui/registry/partner_dashboard' });
   });
 
   it('evaluates required and optional updates', async () => {
@@ -42,8 +42,8 @@ describe('GetPartnerBootstrapUseCase', () => {
     expect((await useCase.execute({ platform: 'ANDROID', appVersion: '2.5.0', authenticated: false })).config.update.optional).toBe(true);
   });
 
-  it('supports Desktop flavor suffix versions', async () => {
-    const result = await new GetPartnerBootstrapUseCase(providerReturning()).execute({ platform: 'DESKTOP', appVersion: '1.0.0-dev', authenticated: false });
+  it('supports WEB flavor suffix versions', async () => {
+    const result = await new GetPartnerBootstrapUseCase(providerReturning()).execute({ platform: 'WEB', appVersion: '1.0.0-dev', authenticated: false });
     expect(result.config.update.required).toBe(false);
     expect(result.config.update.optional).toBe(false);
   });
@@ -58,7 +58,7 @@ describe('GetPartnerBootstrapUseCase', () => {
     const legacy = { ...base, update: { ANDROID: base.update.ANDROID, IOS: base.update.IOS } } as unknown as PartnerBootstrapDocument;
     const useCase = new GetPartnerBootstrapUseCase(providerReturning(legacy));
     expect((await useCase.execute({ platform: 'ANDROID', appVersion: '2.5.0', authenticated: false })).config.update.optional).toBe(true);
-    await expect(useCase.execute({ platform: 'DESKTOP', appVersion: '1.0.0', authenticated: false })).rejects.toThrow('Missing Partner update configuration for DESKTOP');
+    await expect(useCase.execute({ platform: 'WEB', appVersion: '1.0.0', authenticated: false })).rejects.toThrow('Missing Partner update configuration for WEB');
   });
 
   it('rejects invalid bootstrap documents and startup identities', async () => {

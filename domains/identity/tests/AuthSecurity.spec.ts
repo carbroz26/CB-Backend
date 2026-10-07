@@ -119,24 +119,20 @@ describe('CW5 Identity authentication security primitives', () => {
     expect(result.resendAfterSeconds).toBe(AUTH_SECURITY_POLICY.otp.resendCooldownMs / 1000);
     expect(result.resendAfterSeconds).not.toBe(result.expiresInSeconds);
     expect(result.isNewUser).toBe(true);
-    expect(result.nextScreen).toEqual({
+    expect(result.destination).toEqual({
       screenId: 'partner_otp',
-      templateId: 'tpl_P6X8N3',
+      templateId: 'tpl_P102O',
       templateType: 'form_template',
       endpoint: '/api/v1/partner/screen/auth_otp',
-      method: 'GET',
-      authentication: 'NONE',
     });
-    expect(Object.keys(result.nextScreen).sort()).toEqual([
-      'authentication',
+    expect(Object.keys(result.destination).sort()).toEqual([
       'endpoint',
-      'method',
       'screenId',
       'templateId',
       'templateType',
     ]);
-    expect(result.nextScreen).not.toHaveProperty('template');
-    expect(result.nextScreen).not.toHaveProperty('api');
+    expect(result.destination).not.toHaveProperty('template');
+    expect(result.destination).not.toHaveProperty('api');
     expect(result).not.toHaveProperty('otp');
     expect(result).not.toHaveProperty('mockOtp');
     expect(persistedHash).not.toBe(deliveredOtp);

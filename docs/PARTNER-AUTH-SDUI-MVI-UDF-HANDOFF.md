@@ -172,7 +172,7 @@ Request:
 
 ```text
 GET /api/v1/partner/config/bootstrap
-x-carbroz-platform: ANDROID | IOS | DESKTOP
+x-carbroz-platform: ANDROID | IOS | WEB
 x-carbroz-app-version: semantic version
 x-carbroz-build-number: non-negative integer
 Authorization: Bearer <access token> // only when local session exists

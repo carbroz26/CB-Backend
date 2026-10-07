@@ -21,6 +21,7 @@ export interface RequestActionOptions {
   readonly validate?: boolean;
   readonly body?: Readonly<Record<string, RequestBodyValue>>;
   readonly responseMode?: 'none' | 'destination';
+  readonly retain?: Readonly<Record<string, string>>;
 }
 
 export interface DynamicDestination {
@@ -28,8 +29,6 @@ export interface DynamicDestination {
   readonly templateId: string;
   readonly templateType: string;
   readonly endpoint: string;
-  readonly method: 'GET';
-  readonly authentication: SduiAuthentication;
 }
 
 export type PresentationMode = 'dialog' | 'bottom_sheet' | 'popup';
@@ -47,6 +46,7 @@ export function binding(key: string): SduiValueReference { return { $binding: ke
 export function context(path: string): SduiValueReference { return { $context: path }; }
 export function response(path: string): SduiValueReference { return { $response: path }; }
 export function literal(value: unknown): SduiValueReference { return { $literal: value }; }
+export function state(path: string): SduiValueReference { return { $state: path }; }
 
 export function requestAction(options: RequestActionOptions): SduiAction {
   return {
@@ -58,12 +58,13 @@ export function requestAction(options: RequestActionOptions): SduiAction {
       validate: options.validate ?? false,
       ...(options.body ? { body: options.body as Record<string, RequestBodyValue> } : {}),
       responseMode: options.responseMode ?? 'none',
+      ...(options.retain ? { retain: options.retain as Record<string, string> } : {}),
     },
   };
 }
 
 export function navigateAction(destination: DynamicDestination): SduiAction {
-  return { type: 'navigate', payload: destination };
+  return { type: 'navigate', destination };
 }
 
 export function presentAction(targetId: string, presentation: PresentationMode): SduiAction {
@@ -105,7 +106,7 @@ export function sequenceAction(actions: readonly SduiAction[]): SduiAction {
 }
 
 /** Canonical authoring namespaces. They serialize to the frozen wire contract. */
-export const ref = Object.freeze({ binding, context, response, literal });
+export const ref = Object.freeze({ binding, context, response, literal, state });
 
 export const action = Object.freeze({
   request: requestAction,

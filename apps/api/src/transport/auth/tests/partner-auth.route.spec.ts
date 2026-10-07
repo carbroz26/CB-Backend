@@ -14,20 +14,18 @@ describe('Partner Auth Phase 5/6 route contract', () => {
   });
 
   it('mounts Send OTP at the exact Partner URL, forwards the canonical body, and returns a valid destination', async () => {
-    const nextScreen = {
+    const destination = {
       screenId: 'partner_otp',
-      templateId: 'tpl_partner_otp_v1',
+      templateId: 'tpl_P102O',
       templateType: 'form_template',
       endpoint: '/api/v1/partner/screen/auth_otp',
-      method: 'GET' as const,
-      authentication: 'NONE' as const,
     };
     const execute = vi.fn().mockResolvedValue({
       message: 'OTP sent successfully',
       challengeId: 'challenge-123',
       expiresInSeconds: 300,
       isNewUser: true,
-      nextScreen,
+      destination,
     });
 
     const app = Fastify();
@@ -71,8 +69,8 @@ describe('Partner Auth Phase 5/6 route contract', () => {
     expect(isRecord(envelope.data)).toBe(true);
     if (!isRecord(envelope.data)) throw new Error('Expected response envelope data object');
 
-    const parsedDestination = dynamicDestinationSchema.parse(envelope.data.nextScreen);
-    expect(parsedDestination).toEqual(nextScreen);
+    const parsedDestination = dynamicDestinationSchema.parse(envelope.data.destination);
+    expect(parsedDestination).toEqual(destination);
     expect(parsedDestination).not.toHaveProperty('template');
     expect(parsedDestination).not.toHaveProperty('api');
   });

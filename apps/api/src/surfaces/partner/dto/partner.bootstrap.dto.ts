@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 const partnerPlatformSchema = z.preprocess(
   (value) => typeof value === 'string' ? value.toUpperCase() : value,
-  z.enum(['ANDROID', 'IOS', 'DESKTOP']),
+  z.enum(['ANDROID', 'IOS', 'WEB']),
 );
 
 const applicationVersionSchema = z.string().trim().regex(

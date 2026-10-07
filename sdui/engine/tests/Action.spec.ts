@@ -25,8 +25,8 @@ describe('SDUI action authoring', () => {
 
     expect(action.navigate({
       screenId: 'partner_profile', templateId: 'tpl_profile', templateType: 'stack_template',
-      endpoint: '/api/v1/partner/screen/profile', method: 'GET', authentication: 'SESSION',
-    })).toMatchObject({ type: 'navigate', payload: { screenId: 'partner_profile' } });
+      endpoint: '/api/v1/partner/screen/profile',
+    })).toMatchObject({ type: 'navigate', destination: { screenId: 'partner_profile' } });
   });
 
   it('covers canonical request defaults and navigation optional targets', () => {
@@ -41,17 +41,13 @@ describe('SDUI action authoring', () => {
     });
 
     expect(action.navigate({
-      targetId: 'continue_button',
       screenId: 'next', templateId: 'next_template', templateType: 'stack_template',
-      endpoint: '/api/v1/screen/next', method: 'POST', authentication: 'NONE',
-      body: { source: ref.literal('test') },
+      endpoint: '/api/v1/screen/next',
     })).toEqual({
       type: 'navigate',
-      payload: {
-        targetId: 'continue_button',
+      destination: {
         screenId: 'next', templateId: 'next_template', templateType: 'stack_template',
-        endpoint: '/api/v1/screen/next', method: 'POST', authentication: 'NONE',
-        body: { source: { $literal: 'test' } },
+        endpoint: '/api/v1/screen/next',
       },
     });
   });

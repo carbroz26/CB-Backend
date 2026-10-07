@@ -28,20 +28,20 @@ export const dynamicDestinationSchema = z.object({
   templateId: idSchema,
   templateType: idSchema,
   endpoint: z.string().trim().startsWith('/'),
-  method: z.literal('GET'),
-  authentication: authenticationSchema,
 }).strict();
 
 const bindingReferenceSchema = z.object({ $binding: idSchema }).strict();
 const literalReferenceSchema = z.object({ $literal: z.unknown() }).strict();
 const responseReferenceSchema = z.object({ $response: z.string().trim().min(1) }).strict();
 const contextReferenceSchema = z.object({ $context: z.string().trim().min(1) }).strict();
+const stateReferenceSchema = z.object({ $state: z.string().trim().min(1) }).strict();
 
 export const valueReferenceSchema = z.union([
   bindingReferenceSchema,
   literalReferenceSchema,
   responseReferenceSchema,
   contextReferenceSchema,
+  stateReferenceSchema,
 ]);
 
 export type SduiValueReference = z.infer<typeof valueReferenceSchema>;
@@ -65,12 +65,13 @@ const requestActionSchema = z.object({
     validate: z.boolean().default(false),
     body: z.record(z.string(), requestBodyValueSchema).optional(),
     responseMode: z.enum(['none', 'destination']).default('none'),
+    retain: z.record(z.string(), z.string()).optional(),
   }).strict(),
 }).strict();
 
 const navigateActionSchema = z.object({
   type: z.literal('navigate'),
-  payload: dynamicDestinationSchema,
+  destination: dynamicDestinationSchema,
 }).strict();
 
 const presentActionSchema = z.object({

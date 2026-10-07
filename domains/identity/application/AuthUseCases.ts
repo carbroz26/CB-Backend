@@ -23,8 +23,6 @@ export interface AuthFlowDestination {
   readonly templateId: string;
   readonly templateType: string;
   readonly endpoint: string;
-  readonly method: 'GET';
-  readonly authentication: 'NONE' | 'SESSION';
 }
 
 /** Input for beginning the phone-number OTP flow. */
@@ -37,10 +35,11 @@ export interface SendOtpInput {
 export interface SendOtpResult {
   message: string;
   challengeId: string;
+  phoneNumber: string;
   expiresInSeconds: number;
   resendAfterSeconds: number;
   isNewUser: boolean;
-  nextScreen: AuthFlowDestination;
+  destination: AuthFlowDestination;
 }
 
 /** Starts a persisted, rate-limited, provider-delivered OTP challenge. */
@@ -104,16 +103,15 @@ export class SendOtpUseCase implements IUseCase<SendOtpInput, SendOtpResult> {
     return {
       message: 'OTP sent successfully',
       challengeId: challenge.publicId,
+      phoneNumber: input.phoneNumber,
       expiresInSeconds: Math.floor(AUTH_SECURITY_POLICY.otp.ttlMs / 1000),
       resendAfterSeconds: Math.floor(AUTH_SECURITY_POLICY.otp.resendCooldownMs / 1000),
       isNewUser: !user,
-      nextScreen: {
+      destination: {
         screenId: 'partner_otp',
-        templateId: 'tpl_P6X8N3',
+        templateId: 'tpl_P102O',
         templateType: 'form_template',
         endpoint: '/api/v1/partner/screen/auth_otp',
-        method: 'GET',
-        authentication: 'NONE',
       },
     };
   }
@@ -135,7 +133,7 @@ export interface VerifyOtpResult {
   user: User;
   session: UserSession;
   refreshToken: string;
-  nextScreen: AuthFlowDestination;
+  destination: AuthFlowDestination;
 }
 
 /** Verifies and one-time consumes an OTP challenge, then issues a hashed refresh-token family. */
@@ -201,13 +199,11 @@ export class VerifyOtpUseCase implements IUseCase<VerifyOtpInput, VerifyOtpResul
       user,
       session,
       refreshToken,
-      nextScreen: {
+      destination: {
         screenId: 'partner_dashboard',
         templateId: 'partner_dashboard_template',
         templateType: 'default_template',
         endpoint: '/api/v1/partner/sdui/registry/partner_dashboard',
-        method: 'GET',
-        authentication: 'SESSION',
       },
     };
   }

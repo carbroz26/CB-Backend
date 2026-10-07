@@ -31,7 +31,7 @@ describe('PartnerOtpScreen', () => {
 
     expect(validated.screenId).toBe('partner_otp');
     expect(validated.targetApp).toBe('PARTNER');
-    expect(validated.template.id).toBe('tpl_P6X8N3');
+    expect(validated.template.id).toBe('tpl_P102O');
     expect(validated.template.type).toBe('form_template');
     expect(validated.template.components).toHaveLength(2);
     expect(validated.template.properties).toMatchObject({
@@ -76,20 +76,18 @@ describe('PartnerOtpScreen', () => {
           properties: {
             spans: [
               { text: '+91 ' },
-              { text: { $context: 'authFlow.phoneNumber' }, fontWeight: 600 },
+              { text: { $state: 'phoneNumber' }, fontWeight: 600 },
             ],
             trailing: [{ type: 'icon', properties: { name: 'edit' } }],
           },
           actions: {
             onClick: {
               type: 'navigate',
-              payload: {
+              destination: {
                 screenId: 'partner_login',
-                templateId: 'tpl_7K2M9Q',
-                templateType: 'stack_template',
+                templateId: 'tpl_P101L',
+                templateType: 'form_template',
                 endpoint: '/api/v1/partner/screen/auth_login',
-                method: 'GET',
-                authentication: 'NONE',
               },
             },
           },
@@ -150,7 +148,7 @@ describe('PartnerOtpScreen', () => {
                     validate: false,
                     responseMode: 'none',
                     body: {
-                      phoneNumber: { $context: 'authFlow.phoneNumber' },
+                      phoneNumber: { $state: 'phoneNumber' },
                       deviceId: { $context: 'deviceId' },
                     },
                   },
@@ -170,8 +168,8 @@ describe('PartnerOtpScreen', () => {
                     validate: true,
                     responseMode: 'destination',
                     body: {
-                      challengeId: { $response: 'data.challengeId' },
-                      phoneNumber: { $context: 'authFlow.phoneNumber' },
+                      challengeId: { $state: 'challengeId' },
+                      phoneNumber: { $state: 'phoneNumber' },
                       otp: { $binding: 'otp' },
                       deviceId: { $context: 'deviceId' },
                     },
@@ -187,12 +185,12 @@ describe('PartnerOtpScreen', () => {
                   { text: 'By continuing, you agree to our ' },
                   {
                     text: 'Terms & Conditions',
-                    onClick: { type: 'external_uri', payload: { uri: { $context: 'legal.termsUri' } } },
+                    onClick: { type: 'external_uri', payload: { uri: { $literal: 'https://carbroz.com/terms' } } },
                   },
                   { text: ' and ' },
                   {
                     text: 'Privacy Policy',
-                    onClick: { type: 'external_uri', payload: { uri: { $context: 'legal.privacyUri' } } },
+                    onClick: { type: 'external_uri', payload: { uri: { $literal: 'https://carbroz.com/privacy' } } },
                   },
                 ],
               },

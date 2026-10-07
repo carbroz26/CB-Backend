@@ -1,4 +1,4 @@
-export type PartnerClientPlatform = 'ANDROID' | 'IOS' | 'DESKTOP';
+export type PartnerClientPlatform = 'ANDROID' | 'IOS' | 'WEB';
 export type PartnerStartupAuthentication = 'NONE' | 'SESSION';
 
 /** Inputs required to evaluate Partner app startup configuration. */
@@ -35,8 +35,6 @@ export interface PartnerStartupScreenConfig {
   readonly templateId: string;
   readonly templateType: string;
   readonly endpoint: string;
-  readonly method: 'GET';
-  readonly authentication: PartnerStartupAuthentication;
 }
 
 /**
@@ -70,6 +68,6 @@ export interface PartnerBootstrapSnapshot {
   };
   readonly startup: {
     readonly authenticated: boolean;
-    readonly nextScreen: PartnerStartupScreenConfig;
+    readonly destination: PartnerStartupScreenConfig;
   };
 }

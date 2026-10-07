@@ -27,8 +27,6 @@ const destination = (value: unknown) => value as {
   templateId: string;
   templateType: string;
   endpoint: string;
-  method: 'GET';
-  authentication: 'NONE' | 'SESSION';
 };
 
 beforeAll(async () => {
@@ -59,14 +57,12 @@ describe('Phase 12 Partner auth → SDUI end-to-end contract', () => {
     });
     expect(guestBootstrapResponse.statusCode).toBe(200);
     const guestBootstrap = guestBootstrapResponse.json();
-    const loginDestination = destination(guestBootstrap.data.startup.nextScreen);
+    const loginDestination = destination(guestBootstrap.data.startup.destination);
     expect(loginDestination).toEqual({
       screenId: 'partner_login',
-      templateId: 'tpl_7K2M9Q',
-      templateType: 'stack_template',
+      templateId: 'tpl_P101L',
+      templateType: 'form_template',
       endpoint: '/api/v1/partner/screen/auth_login',
-      method: 'GET',
-      authentication: 'NONE',
     });
 
     const loginResponse = await app.inject({ method: 'GET', url: loginDestination.endpoint });
@@ -86,14 +82,12 @@ describe('Phase 12 Partner auth → SDUI end-to-end contract', () => {
     expect(deliveredOtp).toMatch(/^\d{6}$/);
     expect(JSON.stringify(sendOtp)).not.toContain(deliveredOtp);
     expect(JSON.stringify(sendOtp)).not.toContain('otpHash');
-    const otpDestination = destination(sendOtp.data.nextScreen);
+    const otpDestination = destination(sendOtp.data.destination);
     expect(otpDestination).toEqual({
       screenId: 'partner_otp',
-      templateId: 'tpl_P6X8N3',
+      templateId: 'tpl_P102O',
       templateType: 'form_template',
       endpoint: '/api/v1/partner/screen/auth_otp',
-      method: 'GET',
-      authentication: 'NONE',
     });
 
     const otpScreenResponse = await app.inject({ method: 'GET', url: otpDestination.endpoint });
@@ -119,14 +113,12 @@ describe('Phase 12 Partner auth → SDUI end-to-end contract', () => {
     expect(verify.data.refreshToken).toEqual(expect.any(String));
     expect(JSON.stringify(verify)).not.toContain(deliveredOtp);
     expect(JSON.stringify(verify)).not.toContain('otpHash');
-    const dashboardDestination = destination(verify.data.nextScreen);
+    const dashboardDestination = destination(verify.data.destination);
     expect(dashboardDestination).toEqual({
       screenId: 'partner_dashboard',
       templateId: 'partner_dashboard_template',
       templateType: 'default_template',
       endpoint: '/api/v1/partner/sdui/registry/partner_dashboard',
-      method: 'GET',
-      authentication: 'SESSION',
     });
 
     const unauthenticatedDashboard = await app.inject({
@@ -154,6 +146,6 @@ describe('Phase 12 Partner auth → SDUI end-to-end contract', () => {
     expect(authenticatedBootstrapResponse.statusCode).toBe(200);
     const authenticatedBootstrap = authenticatedBootstrapResponse.json();
     expect(authenticatedBootstrap.data.startup.authenticated).toBe(true);
-    expect(authenticatedBootstrap.data.startup.nextScreen).toEqual(dashboardDestination);
+    expect(authenticatedBootstrap.data.startup.destination).toEqual(dashboardDestination);
   });
 });

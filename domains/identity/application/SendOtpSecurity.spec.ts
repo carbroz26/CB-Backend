@@ -145,13 +145,11 @@ describe('SendOtpUseCase security regressions', () => {
     const result = await useCase(otpRepository()).execute({ phoneNumber, deviceId });
     const serialized = JSON.stringify(result);
 
-    expect(result.nextScreen).toEqual({
+    expect(result.destination).toEqual({
       screenId: 'partner_otp',
-      templateId: 'tpl_P6X8N3',
+      templateId: 'tpl_P102O',
       templateType: 'form_template',
       endpoint: '/api/v1/partner/screen/auth_otp',
-      method: 'GET',
-      authentication: 'NONE',
     });
     expect(serialized).not.toContain('654321');
     expect(serialized).not.toContain('hash:654321');

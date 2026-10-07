@@ -16,7 +16,7 @@ const DEFAULT_PARTNER_BOOTSTRAP_DOCUMENT: PartnerBootstrapDocument = {
   update: {
     ANDROID: { minimumVersion: '1.0.0', latestVersion: '1.0.0', storeUrl: null },
     IOS: { minimumVersion: '1.0.0', latestVersion: '1.0.0', storeUrl: null },
-    DESKTOP: { minimumVersion: '1.0.0', latestVersion: '1.0.0', storeUrl: null },
+    WEB: { minimumVersion: '1.0.0', latestVersion: '1.0.0', storeUrl: null },
   },
   features: {
     registrationEnabled: true,
@@ -26,19 +26,15 @@ const DEFAULT_PARTNER_BOOTSTRAP_DOCUMENT: PartnerBootstrapDocument = {
   startup: {
     guest: {
       screenId: 'partner_login',
-      templateId: 'tpl_7K2M9Q',
+      templateId: 'tpl_P101L',
       templateType: 'form_template',
       endpoint: '/api/v1/partner/screen/auth_login',
-      method: 'GET',
-      authentication: 'NONE',
     },
     authenticated: {
       screenId: 'partner_dashboard',
       templateId: 'partner_dashboard_template',
       templateType: 'default_template',
       endpoint: '/api/v1/partner/sdui/registry/partner_dashboard',
-      method: 'GET',
-      authentication: 'SESSION',
     },
   },
 };
@@ -68,7 +64,7 @@ export class GetPartnerBootstrapUseCase {
         },
         features: document.features,
       },
-      startup: { authenticated: input.authenticated, nextScreen: input.authenticated ? document.startup.authenticated : document.startup.guest },
+      startup: { authenticated: input.authenticated, destination: input.authenticated ? document.startup.authenticated : document.startup.guest },
     };
   }
 

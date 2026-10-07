@@ -12,7 +12,7 @@ export class PartnerLoginScreen implements ScreenComposer {
 
   build(_context: ScreenContext): SduiScreen {
     return this.builder.screen(this.screenId, this.targetApp, $ =>
-      $.formTemplate('tpl_7K2M9Q', $ =>
+      $.formTemplate('tpl_P101L', $ =>
         $.setSpacing(24)
           .setHorizontalAlignment('center')
           .setFillMaxSize()
@@ -148,6 +148,10 @@ export class PartnerLoginScreen implements ScreenComposer {
                           phoneNumber: ref.binding('mobileNumber'),
                           deviceId: ref.context('deviceId'),
                         },
+                        retain: {
+                          challengeId: 'data.challengeId',
+                          phoneNumber: 'data.phoneNumber'
+                        },
                       }))
                   )
                   .textElement('legal_text', $ =>
@@ -157,14 +161,14 @@ export class PartnerLoginScreen implements ScreenComposer {
                         text: 'Terms & Conditions',
                         color: '#13B8B5',
                         underline: true,
-                        onClick: action.externalUri(ref.context('legal.termsUri')),
+                        onClick: action.externalUri(ref.literal('https://carbroz.com/terms')),
                       },
                       { text: ' and ' },
                       {
                         text: 'Privacy Policy',
                         color: '#13B8B5',
                         underline: true,
-                        onClick: action.externalUri(ref.context('legal.privacyUri')),
+                        onClick: action.externalUri(ref.literal('https://carbroz.com/privacy')),
                       },
                     ])
                       .setFillMaxWidth()

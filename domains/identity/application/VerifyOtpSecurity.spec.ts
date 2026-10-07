@@ -225,13 +225,11 @@ describe('VerifyOtpUseCase security regressions', () => {
       tokenHash: 'sha256:raw-refresh-token-with-enough-entropy-material',
       familyId: 'family-1',
     }));
-    expect(result.nextScreen).toEqual({
+    expect(result.destination).toEqual({
       screenId: 'partner_dashboard',
       templateId: 'partner_dashboard_template',
       templateType: 'default_template',
       endpoint: '/api/v1/partner/sdui/registry/partner_dashboard',
-      method: 'GET',
-      authentication: 'SESSION',
     });
     expect(JSON.stringify(result)).not.toContain(baseChallenge.otpHash);
     expect(JSON.stringify(result)).not.toContain('654321');

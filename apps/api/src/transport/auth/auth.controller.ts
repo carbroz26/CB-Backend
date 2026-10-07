@@ -50,7 +50,7 @@ export class AuthController {
       token,
       refreshToken: result.refreshToken,
       message: 'Login successful',
-      nextScreen: result.nextScreen,
+      destination: result.destination,
     }));
   }
 

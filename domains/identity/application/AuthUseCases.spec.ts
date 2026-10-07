@@ -135,18 +135,16 @@ describe('Identity authentication use cases', () => {
       message: 'OTP sent successfully',
       challengeId: challenge.publicId,
       isNewUser: true,
-      nextScreen: {
+      destination: {
         screenId: 'partner_otp',
-        templateId: 'tpl_P6X8N3',
+        templateId: 'tpl_P102O',
         templateType: 'form_template',
         endpoint: '/api/v1/partner/screen/auth_otp',
-        method: 'GET',
-        authentication: 'NONE',
       },
     });
     expect(first.expiresInSeconds).toBeGreaterThan(0);
-    expect(first.nextScreen).not.toHaveProperty('template');
-    expect(first.nextScreen).not.toHaveProperty('api');
+    expect(first.destination).not.toHaveProperty('template');
+    expect(first.destination).not.toHaveProperty('api');
     expect(first).not.toHaveProperty('mockOtp');
     expect(first).not.toHaveProperty('otp');
 
@@ -209,17 +207,15 @@ describe('Identity authentication use cases', () => {
     expect(result).toMatchObject({
       user,
       session,
-      nextScreen: {
+      destination: {
         screenId: 'partner_dashboard',
         templateId: 'partner_dashboard_template',
         templateType: 'default_template',
         endpoint: '/api/v1/partner/sdui/registry/partner_dashboard',
-        method: 'GET',
-        authentication: 'SESSION',
       },
     });
-    expect(result.nextScreen).not.toHaveProperty('template');
-    expect(result.nextScreen).not.toHaveProperty('api');
+    expect(result.destination).not.toHaveProperty('template');
+    expect(result.destination).not.toHaveProperty('api');
     expect(result.refreshToken).toBe('raw-refresh-token-with-enough-entropy-material');
     expect(otpRepository.tryConsume).toHaveBeenCalledWith(challenge.id, expect.any(Date), challenge.maxAttempts);
     expect(refreshRepository.issue).toHaveBeenCalledWith(expect.objectContaining({

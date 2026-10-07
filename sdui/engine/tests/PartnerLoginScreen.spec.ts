@@ -8,7 +8,7 @@ describe('PartnerLoginScreen', () => {
 
     expect(validated.screenId).toBe('partner_login');
     expect(validated.targetApp).toBe('PARTNER');
-    expect(validated.template.id).toBe('tpl_7K2M9Q');
+    expect(validated.template.id).toBe('tpl_P101L');
     expect(validated.template.type).toBe('form_template');
     expect(validated.theme).toMatchObject({
       theme: 'light',
@@ -91,6 +91,10 @@ describe('PartnerLoginScreen', () => {
                       deviceId: { $context: 'deviceId' },
                     },
                     responseMode: 'destination',
+                    retain: {
+                      challengeId: 'data.challengeId',
+                      phoneNumber: 'data.phoneNumber'
+                    },
                   },
                 },
               },
@@ -103,12 +107,12 @@ describe('PartnerLoginScreen', () => {
                   { text: 'By continuing, you agree to our ' },
                   {
                     text: 'Terms & Conditions',
-                    onClick: { type: 'external_uri', payload: { uri: { $context: 'legal.termsUri' } } },
+                    onClick: { type: 'external_uri', payload: { uri: { $literal: 'https://carbroz.com/terms' } } },
                   },
                   { text: ' and ' },
                   {
                     text: 'Privacy Policy',
-                    onClick: { type: 'external_uri', payload: { uri: { $context: 'legal.privacyUri' } } },
+                    onClick: { type: 'external_uri', payload: { uri: { $literal: 'https://carbroz.com/privacy' } } },
                   },
                 ],
               },

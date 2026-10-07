@@ -28,13 +28,13 @@ describe('PartnerBootstrapController', () => {
   it('does not require authentication when no bearer is supplied', async () => {
     const execute = vi.fn().mockResolvedValue({
       config: {},
-      startup: { authenticated: false, nextScreen: {} },
+      startup: { authenticated: false, destination: {} },
     });
     const send = vi.fn((body) => body);
     const status = vi.fn(() => ({ send }));
     const request = {
       headers: {
-        'x-carbroz-platform': 'DESKTOP',
+        'x-carbroz-platform': 'WEB',
         'x-carbroz-app-version': '1.0.0-dev+42',
         'x-carbroz-build-number': '42',
       },
@@ -49,7 +49,7 @@ describe('PartnerBootstrapController', () => {
 
     expect(request.jwtVerify).not.toHaveBeenCalled();
     expect(execute).toHaveBeenCalledWith({
-      platform: 'DESKTOP',
+      platform: 'WEB',
       appVersion: '1.0.0-dev+42',
       authenticated: false,
     });

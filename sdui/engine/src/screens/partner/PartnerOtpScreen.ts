@@ -12,7 +12,7 @@ export class PartnerOtpScreen implements ScreenComposer {
 
   build(_context: ScreenContext): SduiScreen {
     return this.builder.screen(this.screenId, this.targetApp, $ =>
-      $.formTemplate('tpl_P6X8N3', $ =>
+      $.formTemplate('tpl_P102O', $ =>
         $.setSpacing(24)
           .setHorizontalAlignment('center')
           .setFillMaxSize()
@@ -77,7 +77,7 @@ export class PartnerOtpScreen implements ScreenComposer {
               .textElement('otp_phone_number', $ =>
                 $.setSpans([
                   { text: '+91 ' },
-                  { text: ref.context('authFlow.phoneNumber'), fontWeight: 600 },
+                  { text: ref.state('phoneNumber'), fontWeight: 600 },
                 ])
                   .setTrailing({
                     type: 'icon',
@@ -89,11 +89,9 @@ export class PartnerOtpScreen implements ScreenComposer {
                   .setTextAlign('center')
                   .setOnClick(action.navigate({
                     screenId: 'partner_login',
-                    templateId: 'tpl_7K2M9Q',
-                    templateType: 'stack_template',
+                    templateId: 'tpl_P101L',
+                    templateType: 'form_template',
                     endpoint: '/api/v1/partner/screen/auth_login',
-                    method: 'GET',
-                    authentication: 'NONE',
                   }))
               )
           )
@@ -150,7 +148,7 @@ export class PartnerOtpScreen implements ScreenComposer {
                         validate: false,
                         responseMode: 'none',
                         body: {
-                          phoneNumber: ref.context('authFlow.phoneNumber'),
+                          phoneNumber: ref.state('phoneNumber'),
                           deviceId: ref.context('deviceId'),
                         },
                       }))
@@ -182,8 +180,8 @@ export class PartnerOtpScreen implements ScreenComposer {
                         validate: true,
                         responseMode: 'destination',
                         body: {
-                          challengeId: ref.response('data.challengeId'),
-                          phoneNumber: ref.context('authFlow.phoneNumber'),
+                          challengeId: ref.state('challengeId'),
+                          phoneNumber: ref.state('phoneNumber'),
                           otp: ref.binding('otp'),
                           deviceId: ref.context('deviceId'),
                         },
@@ -196,14 +194,14 @@ export class PartnerOtpScreen implements ScreenComposer {
                         text: 'Terms & Conditions',
                         color: '#13B8B5',
                         underline: true,
-                        onClick: action.externalUri(ref.context('legal.termsUri')),
+                        onClick: action.externalUri(ref.literal('https://carbroz.com/terms')),
                       },
                       { text: ' and ' },
                       {
                         text: 'Privacy Policy',
                         color: '#13B8B5',
                         underline: true,
-                        onClick: action.externalUri(ref.context('legal.privacyUri')),
+                        onClick: action.externalUri(ref.literal('https://carbroz.com/privacy')),
                       },
                     ])
                       .setFillMaxWidth()
