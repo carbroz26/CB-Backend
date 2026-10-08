@@ -103,6 +103,51 @@ describe('canonical SDUI V3 hierarchy', () => {
     expect(parseSduiScreen(screen).template.components).toHaveLength(3);
   });
 
+
+  it('accepts backend-owned asset URLs and optional fallback URLs', () => {
+    const screen = {
+      ...baseScreen,
+      template: {
+        id: 'home_template',
+        type: 'default_template',
+        components: [{
+          id: 'component-a',
+          type: 'content',
+          elements: [
+            {
+              id: 'icon-a',
+              type: 'icon',
+              properties: {
+                url: 'https://backend.example/assets/icon.png',
+                fallbackUrl: 'https://backend.example/assets/fallback.png',
+              },
+            },
+            {
+              id: 'image-a',
+              type: 'image',
+              properties: {
+                url: 'https://backend.example/assets/image.png',
+                fallbackUrl: 'https://backend.example/assets/fallback.png',
+              },
+            },
+          ],
+        }],
+      },
+    };
+
+    const parsed = parseSduiScreen(screen);
+    const elements = parsed.template.components[0].elements;
+
+    expect(elements[0].properties).toEqual({
+      url: 'https://backend.example/assets/icon.png',
+      fallbackUrl: 'https://backend.example/assets/fallback.png',
+    });
+    expect(elements[1].properties).toEqual({
+      url: 'https://backend.example/assets/image.png',
+      fallbackUrl: 'https://backend.example/assets/fallback.png',
+    });
+  });
+
   it.each([
     ['zero components', {
       ...baseScreen,
