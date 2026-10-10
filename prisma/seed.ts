@@ -151,6 +151,77 @@ async function main() {
     }
   }
 
+  // 7. Seed a small published SDUI screen to verify backend-hosted image/icon URLs.
+  // Static files in apps/api/public are served from the API root.
+  const assetBaseUrl = process.env.API_PUBLIC_URL ?? 'http://localhost:3000';
+  const partnerAssetsScreen = {
+    screenId: 'partner-assets-demo',
+    templateId: 'partner-assets-demo-template',
+    templateType: 'form_template',
+    schemaVersion: '1.0.0',
+    targetApp: 'PARTNER',
+    template: {
+      id: 'partner-assets-demo-template',
+      type: 'form_template',
+      properties: { orientation: 'vertical', padding: { all: 16 } },
+      components: [
+        {
+          id: 'partner-assets-demo-component',
+          type: 'stack_component',
+          properties: { orientation: 'vertical' },
+          elements: [
+            {
+              id: 'partner-logo-image',
+              type: 'image',
+              properties: {
+                url: `${assetBaseUrl}/images/carbroz_logo.png`,
+                fallbackUrl: `${assetBaseUrl}/images/logo_washx.png`,
+                contentScale: 'fit',
+                semanticRole: 'image',
+              },
+            },
+            {
+              id: 'partner-brand-icon',
+              type: 'icon',
+              properties: {
+                url: `${assetBaseUrl}/images/car_stars.png`,
+                fallbackUrl: `${assetBaseUrl}/images/img_splash_car.png`,
+                semanticRole: 'icon',
+              },
+            },
+          ],
+        },
+      ],
+    },
+  };
+
+  await prisma.sduiScreen.upsert({
+    where: {
+      screenId_targetApp_versionNumber: {
+        screenId: partnerAssetsScreen.screenId,
+        targetApp: partnerAssetsScreen.targetApp,
+        versionNumber: 1,
+      },
+    },
+    update: {
+      layoutJson: partnerAssetsScreen,
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      publishedBy: 'seed',
+      changeDescription: 'Seeded image and icon URL/fallback demo',
+    },
+    create: {
+      screenId: partnerAssetsScreen.screenId,
+      targetApp: partnerAssetsScreen.targetApp,
+      versionNumber: 1,
+      status: 'PUBLISHED',
+      layoutJson: partnerAssetsScreen,
+      publishedAt: new Date(),
+      publishedBy: 'seed',
+      changeDescription: 'Seeded image and icon URL/fallback demo',
+    },
+  });
+
   console.log('Seed completed successfully.');
 }
 
