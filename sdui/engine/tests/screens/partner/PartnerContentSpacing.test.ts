@@ -38,7 +38,7 @@ describe('Partner Login and OTP accessory spacing', () => {
     expect(leadingLabelDivider.properties).not.toHaveProperty('padding');
 
     const trailingLabelDivider = accessory(label, 'trailing');
-    expect(trailingLabelDivider.properties.spacing).toEqual({ start: 8, top: 0, end: 0, bottom: 0 });
+    expect(trailingLabelDivider.properties.spacing).toEqual({ start: 4, top: 0, end: 0, bottom: 0 });
     expect(trailingLabelDivider.properties).not.toHaveProperty('padding');
 
     const countryDivider = accessory(countryCode, 'trailing');
@@ -53,8 +53,12 @@ describe('Partner Login and OTP accessory spacing', () => {
     const label = elementsOf(screen).find(element => element.id === 'otp_partner_label');
     if (!label) throw new Error('Expected OTP partner label');
 
-    const divider = accessory(label, 'trailing');
-    expect(divider.properties.spacing).toEqual({ start: 0, top: 0, end: 8, bottom: 0 });
-    expect(divider.properties).not.toHaveProperty('padding');
+    const leadingDivider = accessory(label, 'leading');
+    expect(leadingDivider.properties.spacing).toEqual({ start: 0, top: 0, end: 8, bottom: 0 });
+    expect(leadingDivider.properties).not.toHaveProperty('padding');
+
+    const trailingDivider = accessory(label, 'trailing');
+    expect(trailingDivider.properties.spacing).toEqual({ start: 4, top: 0, end: 0, bottom: 0 });
+    expect(trailingDivider.properties).not.toHaveProperty('padding');
   });
 });
