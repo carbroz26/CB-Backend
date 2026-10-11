@@ -43,6 +43,7 @@ export class PartnerLoginScreen implements ScreenComposer {
                     type: 'divider',
                     properties: { orientation: 'horizontal', width: 36, thickness: 2, color: '#13B8B5' },
                   })
+                  .setTrailingContentSpacing(8)
                   .setFontSize(18)
                   .setFontWeight(600)
                   .setLetterSpacing(4)
