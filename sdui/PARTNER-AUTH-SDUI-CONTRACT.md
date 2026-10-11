@@ -448,7 +448,7 @@ Also prove:
 ## 20. Frozen Login/OTP accessory spacing revision — 2026-10-11
 
 **Revision:** `DYNAMIC-CONTRACT-REVISION-CONTENT-SPACING-001`  
-**State:** PLAN FROZEN; IMPLEMENTATION NOT STARTED.  
+**State:** PLAN FROZEN; IMPLEMENTATION AUTHORIZED 2026-10-12; IN PROGRESS.  
 **Contract authority:** `sdui/SDUI-COMPOSE-CONTRACT-IMPLEMENTATION-PLAN.md`, section 20.
 
 - Every leading/trailing content accessory may own `spacing: { start, top, end, bottom }` through its canonical content properties.
@@ -458,4 +458,4 @@ Also prove:
 - The four values describe external layout space around the accessory. They must not alter the divider's drawn line or text letter spacing.
 - Missing content spacing means no additional gap. No frontend defaults or literal whitespace are part of this backend contract.
 
-Implementation is not started. Update the canonical NodeDefinitions, composer, validator/serialization path and focused tests only after separate explicit implementation authorization.
+Implementation was authorized on 2026-10-12. Update only the canonical NodeDefinitions/composer/validation path and focused tests required by this frozen contract; do not change authentication behavior or security policy.
