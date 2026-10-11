@@ -41,9 +41,14 @@ export class PartnerLoginScreen implements ScreenComposer {
                   })
                   .setTrailing({
                     type: 'divider',
-                    properties: { orientation: 'horizontal', width: 36, thickness: 2, color: '#13B8B5' },
+                    properties: {
+                      orientation: 'horizontal',
+                      width: 36,
+                      thickness: 2,
+                      color: '#13B8B5',
+                      padding: { start: 0, top: 0, end: 8, bottom: 0 },
+                    },
                   })
-                  .setTrailingContentSpacing(8)
                   .setFontSize(18)
                   .setFontWeight(600)
                   .setLetterSpacing(4)
@@ -93,10 +98,15 @@ export class PartnerLoginScreen implements ScreenComposer {
                       .setShape({ type: 'roundedCorner', cornerRadius: 16 })
                       .textElement('country_code', $ =>
                         $.setText('+91')
-                          .setContentSpacing(8)
                           .setTrailing({
                             type: 'divider',
-                            properties: { orientation: 'vertical', height: 24, thickness: 1, color: '#D4DEE1' },
+                            properties: {
+                              orientation: 'vertical',
+                              height: 24,
+                              thickness: 1,
+                              color: '#D4DEE1',
+                              padding: { start: 8, top: 0, end: 0, bottom: 0 },
+                            },
                           })
                           .setFontSize(18)
                           .setFontWeight(600)
