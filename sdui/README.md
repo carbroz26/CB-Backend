@@ -285,3 +285,9 @@ Unrelated module coverage debt or feature work is outside this freeze.
 ## 16. Frozen authoring statement
 
 > **CarBroz SDUI screen source reads like the canonical tree. Screen creation is `sdui.screen(screenId, targetApp, $ => ...)`. The current typed vocabulary exactly mirrors registered NodeDefinitions: stack/form/default Template, stack Component/Section/Group, and text/image/input/button Elements. `$` is the current lexical scope. Properties are direct `set<Property>()` calls. Screens whose primary interaction is input validation/submission use `form_template`; Partner Login and Partner OTP therefore both use `form_template`. Horizontal layout uses `stackGroup(...).setOrientation('horizontal')`. Theme uses `setTheme($ => ...)` only for differences from `DEFAULT_SDUI_THEME`. Setters return current scope; child creation returns parent scope. One canonical JSON contract, validator and NodeDefinition/default system remain authoritative.**
+
+
+
+## 17. Current content-owned spacing revision
+
+The active SDUI content-spacing revision is documented in `SDUI-COMPOSE-CONTRACT-IMPLEMENTATION-PLAN.md` section 20 and `PARTNER-AUTH-SDUI-CONTRACT.md` section 20. The frozen target replaces content-owned padding and parent text-level `contentSpacing` / `trailingContentSpacing` with per-accessory four-sided `spacing`. This is documentation-only at present; no source implementation has started. Do not change code until the owner explicitly authorizes implementation.
