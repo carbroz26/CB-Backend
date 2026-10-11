@@ -431,7 +431,7 @@ silent property dropping
 ## 20. Frozen content-owned accessory spacing revision — 2026-10-11
 
 **Revision:** `DYNAMIC-CONTRACT-REVISION-CONTENT-SPACING-001`  
-**State:** PLAN FROZEN; IMPLEMENTATION NOT STARTED.
+**State:** PLAN FROZEN; IMPLEMENTATION AUTHORIZED 2026-10-12; IN PROGRESS.
 
 This amendment changes only the generic SDUI content-spacing contract. It does not reopen the canonical SDUI hierarchy, ownership boundaries, builder architecture, node/container padding, or application/domain behavior.
 
@@ -450,4 +450,4 @@ This amendment changes only the generic SDUI content-spacing contract. It does n
 4. Update focused schema, builder, validation, canonical serialization, and screen-composition tests. Include four-edge preservation, absent spacing, and rejection/removal of obsolete content padding and parent-spacing fields.
 5. Run the focused SDUI SDK/engine and mapping-contract tests listed in the repository README, then the required build/lint/test gates for the affected owners.
 
-No source changes are authorized by this documentation amendment alone. Wait for explicit implementation authorization.
+The owner explicitly authorized implementation on 2026-10-12. Keep changes within this frozen plan; if source conflicts with the contract, stop and report rather than redesign.
