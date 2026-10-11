@@ -105,7 +105,7 @@ export class PartnerLoginScreen implements ScreenComposer {
                               height: 24,
                               thickness: 1,
                               color: '#D4DEE1',
-                              padding: { start: 8, top: 0, end: 0, bottom: 0 },
+                              spacing: { start: 8, top: 0, end: 0, bottom: 0 },
                             },
                           })
                           .setFontSize(18)
