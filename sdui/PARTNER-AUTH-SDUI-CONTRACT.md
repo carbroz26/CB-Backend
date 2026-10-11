@@ -437,3 +437,8 @@ Also prove:
 ## 18. Frozen final statement
 
 > **Partner Login and OTP use one canonical SDUI engine and the explicit Screen -> Template -> Component -> optional Section -> optional Group -> Element hierarchy. Both screens use `form_template` because their primary interaction accepts and submits user input. Screen identity is direct, `$` is the current lexical scope, properties are `set<Property>()`, current typed methods mirror only registered NodeDefinitions, and horizontal rows use `stackGroup(...).setOrientation('horizontal')`. Theme is globally defaulted and scoped overrides use `setTheme($ => ...)`. Auth behavior, Destination identity, Redis OTP security and canonical wire semantics remain unchanged.**
+
+
+## 19. Generic text accessory spacing
+
+`text` elements may declare the optional backend-owned `contentSpacing` property as a non-negative number of dp. It defines the gap between the text and its leading/trailing accessories; omission preserves the default zero gap. The Login country-code text uses `contentSpacing: 8` to separate `+91` from its trailing vertical divider. This is a generic text-element capability, not a Login/OTP renderer special case. Existing text alignment and container padding remain unchanged.
