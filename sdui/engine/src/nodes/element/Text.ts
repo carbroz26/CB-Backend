@@ -31,6 +31,8 @@ export const textPropertiesSchema = z.object({
   textAlign: textAlignmentSchema.optional(),
   /** Gap in dp between text and leading/trailing accessories. */
   contentSpacing: z.number().finite().nonnegative().optional(),
+  /** Additional gap between text and trailing accessories, independent of leading spacing. */
+  trailingContentSpacing: z.number().finite().nonnegative().optional(),
   width: dimensionSchema.optional(),
   height: dimensionSchema.optional(),
   maxWidth: dimensionSchema.optional(),
