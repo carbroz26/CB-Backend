@@ -52,7 +52,7 @@ export class PartnerLoginScreen implements ScreenComposer {
                       width: 36,
                       thickness: 2,
                       color: '#13B8B5',
-                      spacing: { start: 8, top: 0, end: 0, bottom: 0 },
+                      spacing: { start: 4, top: 0, end: 0, bottom: 0 },
                     },
                   })
                   .setFontSize(18)
