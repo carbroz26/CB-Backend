@@ -29,6 +29,8 @@ export const textPropertiesSchema = z.object({
   color: colorSchema.optional(),
   disabledColor: colorSchema.optional(),
   textAlign: textAlignmentSchema.optional(),
+  /** Gap in dp between text and leading/trailing accessories. */
+  contentSpacing: z.number().finite().nonnegative().optional(),
   width: dimensionSchema.optional(),
   height: dimensionSchema.optional(),
   maxWidth: dimensionSchema.optional(),
