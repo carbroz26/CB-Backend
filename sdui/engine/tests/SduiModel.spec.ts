@@ -61,9 +61,9 @@ describe('canonical SDUI model schemas', () => {
 
     expect(actionSchema.parse({
       type: 'navigate',
-      payload: {
+      destination: {
         screenId: 'next', templateId: 'next_template', templateType: 'stack_template',
-        endpoint: '/api/v1/screen/next', method: 'GET', authentication: 'NONE',
+        endpoint: '/api/v1/screen/next',
       },
     }).type).toBe('navigate');
     expect(actionSchema.parse({ type: 'present', targetId: 'dialog', payload: { presentation: 'bottom_sheet' } }).type).toBe('present');
