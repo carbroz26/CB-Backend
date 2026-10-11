@@ -24,7 +24,7 @@ export default tseslint.config(
     }
   },
   {
-    files: ['tools/**/*.mjs'],
+    files: ['tools/**/*.mjs', 'fix-db.mjs'],
     languageOptions: {
       globals: {
         console: 'readonly',
