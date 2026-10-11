@@ -52,6 +52,8 @@ describe('co-located node contracts', () => {
   it('requires exactly one canonical text content mode', () => {
     expect(() => TextDefinition.properties.parse({})).toThrow();
     expect(TextDefinition.properties.parse({ text: 'CarBroz' })).toEqual({ text: 'CarBroz' });
+    expect(TextDefinition.properties.parse({ text: '+91', contentSpacing: 8 })).toEqual({ text: '+91', contentSpacing: 8 });
+    expect(() => TextDefinition.properties.parse({ text: '+91', contentSpacing: -1 })).toThrow();
     expect(TextDefinition.properties.parse({
       spans: [
         { text: 'Verify ' },
