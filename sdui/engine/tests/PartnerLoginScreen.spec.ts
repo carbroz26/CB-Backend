@@ -57,7 +57,14 @@ describe('PartnerLoginScreen', () => {
             {
               id: 'mobile_field',
               elements: [
-                { id: 'country_code', type: 'text' },
+                {
+                  id: 'country_code',
+                  type: 'text',
+                  properties: expect.objectContaining({
+                    contentSpacing: 8,
+                    trailing: [{ type: 'divider', properties: { orientation: 'vertical', height: 24, thickness: 1, color: '#D4DEE1' } }],
+                  }),
+                },
                 {
                   id: 'mobile_number',
                   type: 'input',
