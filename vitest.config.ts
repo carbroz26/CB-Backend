@@ -3,7 +3,26 @@ import path from 'node:path';
 import { defineConfig } from 'vitest/config';
 import { findExecutableProductionFiles } from './tests/architecture/support/production-coverage-scope.mjs';
 
-const repositoryRoot = process.cwd();
+function findRepositoryRoot(start = process.cwd()): string {
+  let current = path.resolve(start);
+
+  while (true) {
+    if (
+      fs.existsSync(path.join(current, 'pnpm-workspace.yaml')) &&
+      fs.existsSync(path.join(current, 'vitest.config.ts'))
+    ) {
+      return current;
+    }
+
+    const parent = path.dirname(current);
+    if (parent === current) {
+      throw new Error('Could not locate the backend workspace root from the current working directory');
+    }
+    current = parent;
+  }
+}
+
+const repositoryRoot = findRepositoryRoot();
 const executableProductionFiles = findExecutableProductionFiles(repositoryRoot);
 
 if (executableProductionFiles.length === 0) {
