@@ -46,9 +46,17 @@ describe('PartnerLoginScreen', () => {
           id: 'partner_label',
           type: 'text',
           properties: expect.objectContaining({
-            trailingContentSpacing: 8,
             leading: [{ type: 'divider', properties: { orientation: 'horizontal', width: 36, thickness: 2, color: '#13B8B5' } }],
-            trailing: [{ type: 'divider', properties: { orientation: 'horizontal', width: 36, thickness: 2, color: '#13B8B5' } }],
+            trailing: [{
+              type: 'divider',
+              properties: {
+                orientation: 'horizontal',
+                width: 36,
+                thickness: 2,
+                color: '#13B8B5',
+                padding: { start: 0, top: 0, end: 8, bottom: 0 },
+              },
+            }],
           }),
         }),
       ]),
@@ -70,8 +78,16 @@ describe('PartnerLoginScreen', () => {
                   id: 'country_code',
                   type: 'text',
                   properties: expect.objectContaining({
-                    contentSpacing: 8,
-                    trailing: [{ type: 'divider', properties: { orientation: 'vertical', height: 24, thickness: 1, color: '#D4DEE1' } }],
+                    trailing: [{
+                      type: 'divider',
+                      properties: {
+                        orientation: 'vertical',
+                        height: 24,
+                        thickness: 1,
+                        color: '#D4DEE1',
+                        padding: { start: 8, top: 0, end: 0, bottom: 0 },
+                      },
+                    }],
                   }),
                 },
                 {
