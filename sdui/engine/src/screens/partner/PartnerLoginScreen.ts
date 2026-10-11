@@ -92,6 +92,7 @@ export class PartnerLoginScreen implements ScreenComposer {
                       .setShape({ type: 'roundedCorner', cornerRadius: 16 })
                       .textElement('country_code', $ =>
                         $.setText('+91')
+                          .setContentSpacing(8)
                           .setTrailing({
                             type: 'divider',
                             properties: { orientation: 'vertical', height: 24, thickness: 1, color: '#D4DEE1' },
