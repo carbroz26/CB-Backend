@@ -442,3 +442,20 @@ Also prove:
 ## 19. Generic text accessory spacing
 
 `text` elements may declare the optional backend-owned `contentSpacing` property as a non-negative number of dp. It defines the gap between the text and its leading/trailing accessories; omission preserves the default zero gap. The Login country-code text uses `contentSpacing: 8` to separate `+91` from its trailing vertical divider. This is a generic text-element capability, not a Login/OTP renderer special case. Existing text alignment and container padding remain unchanged.
+
+
+
+## 20. Frozen Login/OTP accessory spacing revision — 2026-10-11
+
+**Revision:** `DYNAMIC-CONTRACT-REVISION-CONTENT-SPACING-001`  
+**State:** PLAN FROZEN; IMPLEMENTATION NOT STARTED.  
+**Contract authority:** `sdui/SDUI-COMPOSE-CONTRACT-IMPLEMENTATION-PLAN.md`, section 20.
+
+- Every leading/trailing content accessory may own `spacing: { start, top, end, bottom }` through its canonical content properties.
+- Update Login and OTP screen definitions to attach spacing to the relevant accessory itself, not to the parent text element.
+- Remove text-level `contentSpacing` and `trailingContentSpacing`; remove accessory `padding` from the canonical backend content contract. Do not leave both old and new properties available as aliases.
+- Keep ordinary node/container padding unchanged.
+- The four values describe external layout space around the accessory. They must not alter the divider's drawn line or text letter spacing.
+- Missing content spacing means no additional gap. No frontend defaults or literal whitespace are part of this backend contract.
+
+Implementation is not started. Update the canonical NodeDefinitions, composer, validator/serialization path and focused tests only after separate explicit implementation authorization.
