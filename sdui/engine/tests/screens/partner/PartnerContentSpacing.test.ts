@@ -33,9 +33,13 @@ describe('Partner Login and OTP accessory spacing', () => {
     const countryCode = elements.find(element => element.id === 'country_code');
     if (!label || !countryCode) throw new Error('Expected Login accessory elements');
 
-    const labelDivider = accessory(label, 'trailing');
-    expect(labelDivider.properties.spacing).toEqual({ start: 0, top: 0, end: 8, bottom: 0 });
-    expect(labelDivider.properties).not.toHaveProperty('padding');
+    const leadingLabelDivider = accessory(label, 'leading');
+    expect(leadingLabelDivider.properties.spacing).toEqual({ start: 0, top: 0, end: 8, bottom: 0 });
+    expect(leadingLabelDivider.properties).not.toHaveProperty('padding');
+
+    const trailingLabelDivider = accessory(label, 'trailing');
+    expect(trailingLabelDivider.properties.spacing).toEqual({ start: 8, top: 0, end: 0, bottom: 0 });
+    expect(trailingLabelDivider.properties).not.toHaveProperty('padding');
 
     const countryDivider = accessory(countryCode, 'trailing');
     expect(countryDivider.properties.spacing).toEqual({ start: 8, top: 0, end: 0, bottom: 0 });
