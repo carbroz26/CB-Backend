@@ -37,7 +37,13 @@ export class PartnerOtpScreen implements ScreenComposer {
                 $.setText('PARTNER')
                   .setLeading({
                     type: 'divider',
-                    properties: { orientation: 'horizontal', width: 36, thickness: 2, color: '#13B8B5' },
+                    properties: {
+                      orientation: 'horizontal',
+                      width: 36,
+                      thickness: 2,
+                      color: '#13B8B5',
+                      spacing: { start: 4, top: 0, end: 0, bottom: 0 },
+                    },
                   })
                   .setTrailing({
                     type: 'divider',
