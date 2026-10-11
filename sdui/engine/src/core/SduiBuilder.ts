@@ -172,6 +172,7 @@ class TextElementScope extends ElementBaseScope {
   setDisabledColor(value: string): this { return this.setProperty('disabledColor', value); }
   setTextAlign(value: TextAlignment): this { return this.setProperty('textAlign', value); }
   setContentSpacing(value: number): this { return this.setProperty('contentSpacing', value); }
+  setTrailingContentSpacing(value: number): this { return this.setProperty('trailingContentSpacing', value); }
   setWidth(value: number): this { return this.setProperty('width', value); }
   setHeight(value: number): this { return this.setProperty('height', value); }
   setMaxWidth(value: number): this { return this.setProperty('maxWidth', value); }
