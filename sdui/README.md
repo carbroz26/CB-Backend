@@ -290,4 +290,4 @@ Unrelated module coverage debt or feature work is outside this freeze.
 
 ## 17. Current content-owned spacing revision
 
-The active SDUI content-spacing revision is documented in `SDUI-COMPOSE-CONTRACT-IMPLEMENTATION-PLAN.md` section 20 and `PARTNER-AUTH-SDUI-CONTRACT.md` section 20. The frozen target replaces content-owned padding and parent text-level `contentSpacing` / `trailingContentSpacing` with per-accessory four-sided `spacing`. This is documentation-only at present; no source implementation has started. Do not change code until the owner explicitly authorizes implementation.
+The active SDUI content-spacing revision is documented in `SDUI-COMPOSE-CONTRACT-IMPLEMENTATION-PLAN.md` section 20 and `PARTNER-AUTH-SDUI-CONTRACT.md` section 20. The frozen target replaces content-owned padding and parent text-level `contentSpacing` / `trailingContentSpacing` with per-accessory four-sided `spacing`. The owner authorized implementation on 2026-10-12. Source changes are in progress on `feature/dynamic-content-spacing-contract`; the contract remains frozen and no unrelated changes are authorized.
