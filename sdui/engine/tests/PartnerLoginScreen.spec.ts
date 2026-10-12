@@ -46,7 +46,7 @@ describe('PartnerLoginScreen', () => {
           id: 'partner_label',
           type: 'text',
           properties: expect.objectContaining({
-            leading: [{ type: 'divider', properties: { orientation: 'horizontal', width: 36, thickness: 2, color: '#13B8B5' } }],
+            leading: [{ type: 'divider', properties: { orientation: 'horizontal', width: 36, thickness: 2, color: '#13B8B5', spacing: { start: 0, top: 0, end: 8, bottom: 0 } } }],
             trailing: [{
               type: 'divider',
               properties: {
