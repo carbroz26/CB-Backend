@@ -5,15 +5,23 @@ export const accessorySchema = z.object({
   type: z.string().trim().min(1),
   properties: z.record(z.string(), z.unknown()),
 }).strict().superRefine((accessory, context) => {
-  const padding = accessory.properties.padding;
-  if (padding === undefined) return;
-
-  const result = edgeInsetsSchema.safeParse(padding);
-  if (!result.success) {
+  if (accessory.properties.padding !== undefined) {
     context.addIssue({
       code: 'custom',
       path: ['properties', 'padding'],
-      message: 'accessory padding must contain non-negative start, top, end, and bottom values',
+      message: 'accessory padding is no longer supported; use spacing',
+    });
+  }
+
+  const spacing = accessory.properties.spacing;
+  if (spacing === undefined) return;
+
+  const result = edgeInsetsSchema.safeParse(spacing);
+  if (!result.success) {
+    context.addIssue({
+      code: 'custom',
+      path: ['properties', 'spacing'],
+      message: 'accessory spacing must contain non-negative start, top, end, and bottom values',
     });
   }
 });

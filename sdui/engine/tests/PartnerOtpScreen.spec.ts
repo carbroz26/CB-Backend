@@ -54,7 +54,7 @@ describe('PartnerOtpScreen', () => {
           properties: {
             text: 'PARTNER',
             leading: [{ type: 'divider', properties: { orientation: 'horizontal' } }],
-            trailing: [{ type: 'divider', properties: { orientation: 'horizontal', padding: { start: 0, top: 0, end: 8, bottom: 0 } } }],
+            trailing: [{ type: 'divider', properties: { orientation: 'horizontal', spacing: { start: 4, top: 0, end: 0, bottom: 0 } } }],
           },
         },
         { id: 'otp_brand_tagline', type: 'text', properties: { text: 'Premium Car Care At Your Doorstep' } },

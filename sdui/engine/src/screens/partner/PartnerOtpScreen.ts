@@ -37,7 +37,13 @@ export class PartnerOtpScreen implements ScreenComposer {
                 $.setText('PARTNER')
                   .setLeading({
                     type: 'divider',
-                    properties: { orientation: 'horizontal', width: 36, thickness: 2, color: '#13B8B5' },
+                    properties: {
+                      orientation: 'horizontal',
+                      width: 36,
+                      thickness: 2,
+                      color: '#13B8B5',
+                      spacing: { start: 0, top: 0, end: 8, bottom: 0 },
+                    },
                   })
                   .setTrailing({
                     type: 'divider',
@@ -46,7 +52,7 @@ export class PartnerOtpScreen implements ScreenComposer {
                       width: 36,
                       thickness: 2,
                       color: '#13B8B5',
-                      padding: { start: 0, top: 0, end: 8, bottom: 0 },
+                      spacing: { start: 4, top: 0, end: 0, bottom: 0 },
                     },
                   })
                   .setFontSize(18)

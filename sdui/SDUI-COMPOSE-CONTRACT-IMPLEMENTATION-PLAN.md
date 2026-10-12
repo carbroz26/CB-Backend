@@ -426,3 +426,34 @@ silent property dropping
 ## 19. Final frozen statement
 
 > **CarBroz SDUI uses one canonical hierarchy and one scoped internal Builder DSL. Screen identity is authored as `sdui.screen(screenId, targetApp, $ => ...)`. The current registered vocabulary is stack/form/default templates, stack component/section/group, and text/image/input/button elements. Screens whose primary interaction accepts and submits user input use `form_template`; Partner Login and Partner OTP both follow that rule. `$` is always the current lexical scope. Properties are direct `set<Property>()` calls. Horizontal rows use the registered `stack_group` with `setOrientation('horizontal')`; no unregistered row type is implied. Theme starts from `DEFAULT_SDUI_THEME` and genuine differences use `setTheme($ => ...)`. Setters return current scope, child creation returns parent scope, and canonical NodeDefinitions plus the final validator remain authoritative.**
+
+
+## 20. Frozen content-owned accessory spacing revision — 2026-10-11
+
+**Revision:** `DYNAMIC-CONTRACT-REVISION-CONTENT-SPACING-001`  
+**State:** PLAN FROZEN; IMPLEMENTATION AUTHORIZED 2026-10-12; IN PROGRESS.
+
+This amendment changes only the generic SDUI content-spacing contract. It does not reopen the canonical SDUI hierarchy, ownership boundaries, builder architecture, node/container padding, or application/domain behavior.
+
+- Leading/trailing content uses a four-sided `properties.spacing` object with `start`, `top`, `end`, and `bottom` values.
+- This property describes external layout space around that specific content item. It is distinct from node/container `properties.padding`, which remains unchanged.
+- The content-level `properties.padding` contract is superseded and must be removed from canonical content schemas/definitions, builders, composers, fixtures, and tests.
+- Text-parent `contentSpacing` and `trailingContentSpacing` are superseded by content-owned spacing and must be removed from the canonical contract and screen definitions. Do not retain aliases or duplicate spacing sources.
+- Login/OTP screen composition must put spacing on the exact leading/trailing content item that needs the gap. Do not encode gaps as literal text whitespace or rely on frontend defaults.
+- Missing content spacing means zero additional gap. Keep all four edges non-negative and follow the existing numeric unit convention used by the SDUI contract.
+- The frontend applies spacing outside the rendered content bounds; divider line geometry and text letter spacing are unaffected.
+
+### Implementation plan (backend)
+1. Inspect the actual canonical NodeDefinition/property schema, builder setters, accessory parsing, validation, and serialization files under `sdui/ui-sdk` and `sdui/engine`; modify only their owning boundaries.
+2. Replace content-owned padding with four-sided content-owned spacing. Preserve ordinary node/container padding semantics.
+3. Update `PartnerLoginScreen.ts` and `PartnerOtpScreen.ts` so leading/trailing accessories use `spacing`, and remove text-parent `contentSpacing` / `trailingContentSpacing` values.
+4. Update focused schema, builder, validation, canonical serialization, and screen-composition tests. Include four-edge preservation, absent spacing, and rejection/removal of obsolete content padding and parent-spacing fields.
+5. Run the focused SDUI SDK/engine and mapping-contract tests listed in the repository README, then the required build/lint/test gates for the affected owners.
+
+### Verification status — 2026-10-12
+
+- Implemented the accessory schema change, Login/OTP composer updates, and focused schema/composition tests on `feature/dynamic-content-spacing-contract`.
+- CI currently fails at the repository-wide ESLint step due to existing `tools/fix-db.mjs` `console` `no-undef` errors; the workflow consequently skips Vitest. This unrelated lint issue is not changed under this frozen scope.
+- Required next verification: `pnpm --filter @carbroz/sdui-engine build` and `pnpm --filter @carbroz/sdui-engine test`, then the repository's agreed affected-owner gates. Do not claim backend verification until those tests run and pass.
+
+The owner explicitly authorized implementation on 2026-10-12. Keep changes within this frozen plan; if source conflicts with the contract, stop and report rather than redesign.
